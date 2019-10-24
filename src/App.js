@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import data from './data'
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    const columns = Object.keys(data.results[0]);
+    this.state = {
+      
+      columnDefs: columns,
+      rowData: data.results
+
+    }
+  }
+
+  render() {
+    return (
+      <div 
+        className="ag-theme-balham"
+        style={{ 
+        height: '500px', 
+        width: '600px' }} 
+      >
+        <AgGridReact
+          columnDefs={this.state.columnDefs}
+          rowData={this.state.rowData}>
+        </AgGridReact>
+      </div>
+    );
+  }
 }
 
 export default App;
